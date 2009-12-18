@@ -1,0 +1,7 @@
+<project name="jneat.assets">
+    <dirname property="jneat.assets.dir" file="${ant.file.jneat.assets}"/>
+
+    <!-- Define JAR exported by this library. -->
+    <property name="jneat.jar" location="${jneat.assets.dir}/${build.dist.dir}/jneat.jar"/>
+
+</project>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
+ 	<bean id="genome" class="org.flashmonkey.neat.core.Genome">
+ 		<property name="traits">
+ 			<list value-type="org.flashmonkey.neat.core.Trait">
+				<ref bean="trait_1"/>
+				<ref bean="trait_2"/>
+				<ref bean="trait_3"/>
+ 			</list>
+ 		</property>
+ 		<property name="nodes">
+ 			<list value-type="org.flashmonkey.neat.core.NNode">
+ 				<ref bean="node_1"/>
+ 				<ref bean="node_2"/>
+ 				<ref bean="node_3"/>
+ 				<ref bean="node_4"/>
+ 			</list>
+ 		</property>
+ 		<property name="genes">
+ 			<list value-type="org.flashmonkey.neat.core.Gene">
+ 				<ref bean="gene_1"/>
+ 				<ref bean="gene_2"/>
+ 				<ref bean="gene_3"/>
+ 			</list>
+ 		</property>
+ 	</bean>
+ 
+ 	<bean id="trait_1" class="org.flashmonkey.neat.core.Trait" lazy-init="false">
+		<property name="id" value="1"/>
+		<property name="params">
+			<list value-type="double">
+				<value>0.1</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="trait_2" class="org.flashmonkey.neat.core.Trait">
+		<property name="id" value="2"/>
+		<property name="params">
+			<list value-type="double">
+				<value>0.2</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="trait_3" class="org.flashmonkey.neat.core.Trait">
+		<property name="id" value="3"/>
+		<property name="params">
+			<list value-type="double">
+				<value>0.3</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+				<value>0.0</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="node_1" class="org.flashmonkey.neat.core.NNode">
+		<property name="id" value="1"/>
+		<property name="trait" ref="trait_1"/>
+		<property name="type" value="1"/>
+		<property name="gen_node_label" value="1"/>
+	</bean>
+	
+	<bean id="node_2" class="org.flashmonkey.neat.core.NNode">
+		<property name="id" value="2"/>
+		<property name="trait" ref="trait_1"/>
+		<property name="type" value="1"/>
+		<property name="gen_node_label" value="1"/>
+	</bean>
+	
+	<bean id="node_3" class="org.flashmonkey.neat.core.NNode">
+		<property name="id" value="3"/>
+		<property name="trait" ref="trait_1"/>
+		<property name="type" value="1"/>
+		<property name="gen_node_label" value="3"/>
+	</bean>
+	
+	<bean id="node_4" class="org.flashmonkey.neat.core.NNode">
+		<property name="id" value="4"/>
+		<property name="trait" ref="trait_1"/>
+		<property name="type" value="0"/>
+		<property name="gen_node_label" value="2"/>
+	</bean>
+	
+	<bean id="gene_1" class="org.flashmonkey.neat.core.Gene">
+		<property name="innovationNumber" value="1"/>
+		<property name="mutationNumber" value="0"/>
+		<property name="enabled" value="true"/>
+		<property name="link">
+			<bean class="org.flashmonkey.neat.core.Link">
+				<constructor-arg ref="trait_1"/>
+				<constructor-arg value="0"/>
+				<constructor-arg ref="node_1"/>
+				<constructor-arg ref="node_4"/>
+				<constructor-arg value="false"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="gene_2" class="org.flashmonkey.neat.core.Gene">
+		<property name="innovationNumber" value="2"/>
+		<property name="mutationNumber" value="0"/>
+		<property name="enabled" value="true"/>
+		<property name="link">
+			<bean class="org.flashmonkey.neat.core.Link">
+				<constructor-arg ref="trait_2"/>
+				<constructor-arg value="0"/>
+				<constructor-arg ref="node_2"/>
+				<constructor-arg ref="node_4"/>
+				<constructor-arg value="false"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="gene_3" class="org.flashmonkey.neat.core.Gene">
+		<property name="innovationNumber" value="3"/>
+		<property name="mutationNumber" value="0"/>
+		<property name="enabled" value="true"/>
+		<property name="link">
+			<bean class="org.flashmonkey.neat.core.Link">
+				<constructor-arg ref="trait_3"/>
+				<constructor-arg value="0"/>
+				<constructor-arg ref="node_3"/>
+				<constructor-arg ref="node_4"/>
+				<constructor-arg value="false"/>
+			</bean>
+		</property>
+	</bean>
+				
+ </beans>
+ <!-- 
+<genomes>
+	<genome>
+		<traits>
+			<trait>1,0.1,0,0,0,0,0,0,0</trait>
+			<trait>2,0.2,0,0,0,0,0,0,0</trait>
+			<trait>3,0.3,0,0,0,0,0,0,0</trait>
+		</traits>
+		<nodes>
+			<node id="1" trait="0" type="1" label="1"/>
+			<node id="2" trait="0" type="1" label="1"/>
+			<node id="3" trait="0" type="1" label="3"/>
+			<node id="4" trait="0" type="0" label="2"/>
+		</nodes>
+		<genes>
+			<gene>1,1,4,0,0,1,0,1</gene>
+			<gene>2,2,4,0,0,2,0,1</gene>
+			<gene>3,3,4,0,0,3,0,1</gene>
+		</genes>
+	</genome>
+</genomes>
+ -->

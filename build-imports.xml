@@ -1,0 +1,15 @@
+<!-- Assets imported by this project -->
+<project name="JNEAT2.imports">
+	<!--
+          ant.file.[projectname] is a built-in property that contains
+          the current file's full path. Each file must have a name
+          and each name must be unique for a project.
+    -->
+    <dirname property="JNEAT2.imports.dir" file="${ant.file.JNEAT2.imports}"/>
+	
+	<property file="${JNEAT2.imports.dir}/build-user.properties" />
+
+    <import file="../antennae/tools/build-common-imports.xml" />
+
+    <import file="build-assets.xml" />
+</project>

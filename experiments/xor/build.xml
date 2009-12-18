@@ -1,0 +1,15 @@
+<project name="xor" default="build">
+    	<import file="build-imports.xml"/>
+
+    	<path id="javac.lib.path">
+		<pathelement location="${jneat.jar}"/>
+	</path>
+
+    	<!-- targets -->
+    	<target name="build" depends="init,java-classes,jar" description="Build the library"/>
+	
+	<target name="jar" description="creates a jar file from the compiled classes">
+		<jar jarfile="${xor.jar}" basedir="${build.javac.dir}"/>
+	</target>
+	
+</project>

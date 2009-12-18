@@ -1,0 +1,7 @@
+<project name="xor.assets">
+    <dirname property="xor.assets.dir" file="${ant.file.xor.assets}"/>
+
+    <!-- Define JAR exported by this library. -->
+    <property name="xor.jar" location="${xor.assets.dir}/${build.dist.dir}/xor-experiment.jar"/>
+
+</project>

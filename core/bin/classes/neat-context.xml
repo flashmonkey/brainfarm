@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+ 
+	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations">
+	    	<list>
+	    		<value>neat-constants.properties</value>
+	    		<value>neat-parameters.properties</value>
+	    		<value>experiment.properties</value>
+	    	</list>
+	    </property>
+	</bean>
+		 
+	<bean id="neat" class="org.flashmonkey.neat.core.Neat">
+		<property name="parameters" ref="default.parameters"/>
+	</bean>
+	
+	<bean id="default.parameters" class="org.springframework.beans.factory.config.ListFactoryBean">
+  		<property name="sourceList">
+      		<list>
+      			<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+      				<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${trait.mutation.probablity.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${trait.mutation.probablity.value}"/>
+					<property name="description" value="${trait.mutation.probablity.description}"/>
+      			</bean>
+      			<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${trait.mutation.power.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${trait.mutation.power.value}"/>
+					<property name="description" value="${trait.mutation.power.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${trait.mutation.power.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${trait.mutation.power.value}"/>
+					<property name="description" value="${trait.mutation.power.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${linktrait.mut.sig.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${linktrait.mut.sig.value}"/>
+					<property name="description" value="${linktrait.mut.sig.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${nodetrait.mut.sig.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${nodetrait.mut.sig.value}"/>
+					<property name="description" value="${nodetrait.mut.sig.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${weight.mut.power.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${weight.mut.power.value}"/>
+					<property name="description" value="${weight.mut.power.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${recur.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${recur.prob.value}"/>
+					<property name="description" value="${recur.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${disjoint.coeff.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${disjoint.coeff.value}"/>
+					<property name="description" value="${disjoint.coeff.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${excess.coeff.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${excess.coeff.value}"/>
+					<property name="description" value="${excess.coeff.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutdiff.coeff.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutdiff.coeff.value}"/>
+					<property name="description" value="${mutdiff.coeff.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${compat.threshold.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${compat.threshold.value}"/>
+					<property name="description" value="${compat.threshold.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${age.significance.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${age.significance.value}"/>
+					<property name="description" value="${age.significance.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${survival.thresh.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${survival.thresh.value}"/>
+					<property name="description" value="${survival.thresh.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.only.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.only.prob.value}"/>
+					<property name="description" value="${mutate.only.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.random.trait.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.random.trait.prob.value}"/>
+					<property name="description" value="${mutate.random.trait.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.link.trait.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.link.trait.prob.value}"/>
+					<property name="description" value="${mutate.link.trait.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.node.trait.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.node.trait.prob.value}"/>
+					<property name="description" value="${mutate.node.trait.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.link.weights.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.link.weights.prob.value}"/>
+					<property name="description" value="${mutate.link.weights.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.toggle.enable.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.toggle.enable.prob.value}"/>
+					<property name="description" value="${mutate.toggle.enable.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.gene.reenable.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.gene.reenable.prob.value}"/>
+					<property name="description" value="${mutate.gene.reenable.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.add.node.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.add.node.prob.value}"/>
+					<property name="description" value="${mutate.add.node.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mutate.add.link.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mutate.add.link.prob.value}"/>
+					<property name="description" value="${mutate.add.link.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${interspecies.mate.rate.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${interspecies.mate.rate.value}"/>
+					<property name="description" value="${interspecies.mate.rate.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mate.multipoint.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mate.multipoint.prob.value}"/>
+					<property name="description" value="${mate.multipoint.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mate.multipoint.avg.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mate.multipoint.avg.prob.value}"/>
+					<property name="description" value="${mate.multipoint.avg.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mate.singlepoint.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mate.singlepoint.prob.value}"/>
+					<property name="description" value="${mate.singlepoint.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${mate.only.prob.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${mate.only.prob.value}"/>
+					<property name="description" value="${mate.only.prob.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatDoubleParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${recur.only.prop.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${recur.only.prop.value}"/>
+					<property name="description" value="${recur.only.prop.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatIntParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${pop.size.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${pop.size.value}"/>
+					<property name="description" value="${pop.size.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatIntParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${dropoff.age.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${dropoff.age.value}"/>
+					<property name="description" value="${dropoff.age.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatIntParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${newlink.tries.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${newlink.tries.value}"/>
+					<property name="description" value="${newlink.tries.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatIntParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${print.every.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${print.every.value}"/>
+					<property name="description" value="${print.every.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatIntParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${babies.stolen.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${babies.stolen.value}"/>
+					<property name="description" value="${babies.stolen.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatIntParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${num.runs.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${num.runs.value}"/>
+					<property name="description" value="${num.runs.description}"/>
+				</bean>
+				<bean class="org.flashmonkey.neat.api.NeatIntParameter">
+					<property name="name">
+	      				<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+						  <property name="staticField" value="${num.trait.params.name}"/>
+						</bean>
+					</property>
+					<property name="value" value="${num.trait.params.value}"/>
+					<property name="description" value="${num.trait.params.description}"/>
+				</bean>
+      		</list>
+      	</property>
+    </bean>
+
+</beans>

@@ -1,0 +1,11 @@
+<project name="JNEAT2.assets">
+    	<import file="core/build-assets.xml" />
+    	<import file="experiments/xor/build-assets.xml" />
+
+	<property name="commons.logging.jar" location="${brainfarm.root}/core/lib/commons-logging-1.1.1.jar"/>
+	<property name="spring.beans.jar" location="${brainfarm.root}/core/lib/spring-beans-2.5.6.jar"/>
+	<property name="spring.context.jar" location="${brainfarm.root}/core/lib/spring-context-2.5.6.jar"/>
+	<property name="spring.core.jar" location="${brainfarm.root}/core/lib/spring-core-2.5.6.jar"/>
+	<property name="jcl.jar" location="${brainfarm.root}/core/lib/jcl-core-2.1.1.jar"/>
+	<property name="log4j.jar" location="${brainfarm.root}/core/lib/log4j-1.2.14.jar"/>
+</project>

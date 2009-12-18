@@ -1,0 +1,20 @@
+<project name="jneat" default="build">
+    	<import file="build-imports.xml"/>
+
+    	<path id="javac.lib.path">
+		<pathelement location="${commons.logging.jar}"/>
+		<pathelement location="${spring.beans.jar}"/>
+		<pathelement location="${spring.context.jar}"/>
+		<pathelement location="${spring.core.jar}"/>
+		<pathelement location="${jcl.jar}"/>
+		<pathelement location="${log4j.jar}"/>
+	</path>
+
+    	<!-- targets -->
+    	<target name="build" depends="init,java-classes,jar" description="Build the library"/>
+	
+	<target name="jar" description="creates a jar file from the compiled classes">
+		<jar jarfile="${jneat.jar}" basedir="${build.javac.dir}"/>
+	</target>
+	
+</project>

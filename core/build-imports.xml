@@ -1,0 +1,3 @@
+<project name="jneat.imports">
+    <import file="../build-imports.xml"/>
+</project>
