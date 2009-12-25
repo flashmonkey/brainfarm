@@ -21,6 +21,8 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.flashmonkey.neat.core.NodeLabel;
+
 import util.CodeConstant;
 import util.NeatConstant;
 
@@ -659,7 +661,7 @@ public class ChartXY extends JPanel {
 					g2.fillOval((int) px, (int) py, (int) raggio_base,
 							(int) raggio_base);
 
-					if (_p1.type == NeatConstant.HIDDEN) {
+					if (_p1.type == NodeLabel.HIDDEN) {
 						g2.setColor(Color.lightGray);
 						g2.fillArc((int) px, (int) py, (int) raggio_base,
 								(int) raggio_base, 0, 180);
@@ -1308,7 +1310,7 @@ public class ChartXY extends JPanel {
 					g2.fillOval((int) px, (int) py, (int) raggio_base,
 							(int) raggio_base);
 
-					if (_p1.type == NeatConstant.HIDDEN) {
+					if (_p1.type == NodeLabel.HIDDEN) {
 						g2.setColor(Color.lightGray);
 						g2.fillArc((int) px, (int) py, (int) raggio_base,
 								(int) raggio_base, 0, 180);

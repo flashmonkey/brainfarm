@@ -186,7 +186,7 @@ public class Structure {
 						curword = st.nextToken();
 						int type2 = Integer.parseInt(curword);
 
-						if (type1 == NeatConstant.SENSOR) {
+						/*if (type1 == NeatConstant.SENSOR) {
 							_type = NeatConstant.INPUT;
 						} else {
 							if (type2 == NeatConstant.OUTPUT)
@@ -194,16 +194,16 @@ public class Structure {
 							else
 								_type = NeatConstant.HIDDEN;
 						}
-						newVertex = new Vertex(0, 0, _type, _id);
+						newVertex = new Vertex(0, 0, _type, _id);*/
 
 						if (_id > hi_node_name)
 							hi_node_name = _id;
 
-						vVertex.addElement(newVertex);
+						/*vVertex.addElement(newVertex);
 						if (_type == NeatConstant.SENSOR)
 							vInp.add(newVertex);
 						else if (_type == NeatConstant.OUTPUT)
-							vOut.add(newVertex);
+							vOut.add(newVertex);*/
 
 					} // end block Vertex
 
@@ -420,11 +420,11 @@ public class Structure {
 				_edge.active = false;
 
 				if (_inode.name == _onode.name) {
-					virtP = new Vertex(0, 0, 4, hi_node_name++, _inode, _edge);
+					//virtP = new Vertex(0, 0, 4, hi_node_name++, _inode, _edge);
 					virtP.edge_id = 0;
 					virtP.level = 0;
 					virtP.altitude = 0;
-					virtP.type = CodeConstant.VERTEX_RECURRENT;
+					//virtP.type = CodeConstant.VERTEX_RECURRENT;
 					// System.out.print("\n creato recurrent node : "+virtP.name+" per nodo "+_inode.name);
 					vVertex.add(virtP);
 					// _edge.active = true;
@@ -484,7 +484,7 @@ public class Structure {
 					boolean first = true;
 					for (int livello = (to_node.level + 1); livello < from_node.level; livello++) {
 
-						virtP = new Vertex(0, 0, 4, hi_node_name++);
+						//virtP = new Vertex(0, 0, 4, hi_node_name++);
 
 						// dato che il nodo è connesso in una catena singola ed
 						// unica
@@ -504,7 +504,7 @@ public class Structure {
 						if (first) {
 							// System.out.print("\n    added outer link " +
 							// curr_edge_id);
-							virtP.type = CodeConstant.VERTEX_TOP_Y;
+							//virtP.type = CodeConstant.VERTEX_TOP_Y;
 							virtE = new Edge(virtP, last_to_node, false, 0,
 									_edge.weight);
 							virtE.type = CodeConstant.LINE_LC;
@@ -522,7 +522,7 @@ public class Structure {
 						{
 							// System.out.print("\n    added outer link " +
 							// curr_edge_id);
-							virtP.type = CodeConstant.VERTEX_MID_Y;
+							//virtP.type = CodeConstant.VERTEX_MID_Y;
 							virtE = new Edge(virtP, last_to_node, false, 0,
 									_edge.weight);
 							virtE.type = CodeConstant.LINE_MC;
@@ -540,10 +540,10 @@ public class Structure {
 						last_to_node = virtP;
 					}
 
-					if (diff_level == 2)
+					/*if (diff_level == 2)
 						virtP.type = CodeConstant.VERTEX_SNG_Y;
 					else
-						virtP.type = CodeConstant.VERTEX_BOT_Y;
+						virtP.type = CodeConstant.VERTEX_BOT_Y;*/
 
 					virtE = new Edge(from_node, last_to_node, false, 0,
 							_edge.weight);
@@ -573,7 +573,7 @@ public class Structure {
 
 					boolean first = true;
 					for (int livello = (from_node.level + 1); livello < to_node.level; livello++) {
-						virtP = new Vertex(0, 0, 4, hi_node_name++);
+						//virtP = new Vertex(0, 0, 4, hi_node_name++);
 
 						// dato che il nodo è connesso in una catena singola ed
 						// unica
@@ -591,7 +591,7 @@ public class Structure {
 						if (first) {
 							// System.out.print("\n    added inner link " +
 							// curr_edge_id);
-							virtP.type = CodeConstant.VERTEX_TOP_Y;
+							//virtP.type = CodeConstant.VERTEX_TOP_Y;
 							virtE = new Edge(last_to_node, virtP, false, 0,
 									_edge.weight);
 							virtE.type = CodeConstant.LINE_FC;
@@ -607,7 +607,7 @@ public class Structure {
 						else {
 							// System.out.print("\n    added outer link " +
 							// curr_edge_id);
-							virtP.type = CodeConstant.VERTEX_MID_Y;
+							//virtP.type = CodeConstant.VERTEX_MID_Y;
 							virtE = new Edge(last_to_node, virtP, false, 0,
 									_edge.weight);
 							virtE.type = CodeConstant.LINE_MC;
@@ -625,10 +625,10 @@ public class Structure {
 						last_to_node = virtP;
 					}
 
-					if (diff_level == 2)
+					/*if (diff_level == 2)
 						virtP.type = CodeConstant.VERTEX_SNG_Y;
 					else
-						virtP.type = CodeConstant.VERTEX_BOT_Y;
+						virtP.type = CodeConstant.VERTEX_BOT_Y;*/
 
 					virtE = new Edge(last_to_node, to_node, false, 0,
 							_edge.weight);
@@ -776,7 +776,7 @@ public class Structure {
 							first = true;
 							for (int colonna = (from_node.gx + 1); colonna < to_node.gx; colonna++) {
 
-								virtP = new Vertex(0, 0, 4, hi_node_name++);
+								//virtP = new Vertex(0, 0, 4, hi_node_name++);
 								// dato che il nodo è connesso in una catena
 								// singola ed unica
 								// il group id dei vertici è il nome del lato
@@ -797,7 +797,7 @@ public class Structure {
 								if (first) {
 									// System.out.print("\n    added inner link "
 									// + curr_edge_id);
-									virtP.type = CodeConstant.VERTEX_BOT_Y;
+									//virtP.type = CodeConstant.VERTEX_BOT_Y;
 									virtE = new Edge(last_to_node, virtP,
 											false, 0, _edge.weight);
 									virtE.type = CodeConstant.LINE_H_FC;
@@ -814,7 +814,7 @@ public class Structure {
 								else {
 									// System.out.print("\n    added inner link "
 									// + curr_edge_id);
-									virtP.type = CodeConstant.VERTEX_MID_Y;
+									//virtP.type = CodeConstant.VERTEX_MID_Y;
 									virtE = new Edge(last_to_node, virtP,
 											false, 0, _edge.weight);
 									virtE.type = CodeConstant.LINE_H_MC;
@@ -835,10 +835,10 @@ public class Structure {
 
 							}
 
-							if (diff_level == 2)
+							/*if (diff_level == 2)
 								virtP.type = CodeConstant.VERTEX_SNG_Y;
 							else
-								virtP.type = CodeConstant.VERTEX_TOP_Y;
+								virtP.type = CodeConstant.VERTEX_TOP_Y;*/
 
 							virtE = new Edge(last_to_node, to_node, false, 0,
 									_edge.weight);
@@ -867,7 +867,7 @@ public class Structure {
 							first = true;
 							for (int colonna = (from_node.gx - 1); colonna > to_node.gx; colonna--) {
 
-								virtP = new Vertex(0, 0, 4, hi_node_name++);
+								//virtP = new Vertex(0, 0, 4, hi_node_name++);
 								// dato che il nodo è connesso in una catena
 								// singola ed unica
 								// il group id dei vertici è il nome del lato
@@ -888,7 +888,7 @@ public class Structure {
 								if (first) {
 									// System.out.print("\n    added inner link "
 									// + curr_edge_id);
-									virtP.type = CodeConstant.VERTEX_BOT_Y;
+									//virtP.type = CodeConstant.VERTEX_BOT_Y;
 									virtE = new Edge(last_to_node, virtP,
 											false, 0, _edge.weight);
 									virtE.type = CodeConstant.LINE_H_FC;
@@ -905,7 +905,7 @@ public class Structure {
 								else {
 									// System.out.print("\n    added inner link "
 									// + curr_edge_id);
-									virtP.type = CodeConstant.VERTEX_MID_Y;
+									//virtP.type = CodeConstant.VERTEX_MID_Y;
 									virtE = new Edge(last_to_node, virtP,
 											false, 0, _edge.weight);
 									virtE.type = CodeConstant.LINE_H_MC;
@@ -926,10 +926,10 @@ public class Structure {
 
 							}
 
-							if (diff_level == 2)
+							/*if (diff_level == 2)
 								virtP.type = CodeConstant.VERTEX_SNG_Y;
 							else
-								virtP.type = CodeConstant.VERTEX_TOP_Y;
+								virtP.type = CodeConstant.VERTEX_TOP_Y;*/
 
 							virtE = new Edge(last_to_node, to_node, false, 0,
 									_edge.weight);
@@ -1546,10 +1546,10 @@ public class Structure {
 		// System.out.print("\n aggiorna sui nuovi livelli ");
 		while (itr_Vertex.hasNext()) {
 			_Vertex = ((Vertex) itr_Vertex.next());
-			if (_Vertex.type == CodeConstant.VERTEX_RECURRENT) {
+			/*if (_Vertex.type == CodeConstant.VERTEX_RECURRENT) {
 				_Vertex.x = _Vertex.Vertex_ref.x;
 				_Vertex.y = _Vertex.Vertex_ref.y;
-			}
+			}*/
 		}
 
 	}
@@ -1797,7 +1797,7 @@ public class Structure {
 			//NNode _node = ((NNode) itr_node.next());
 			_id = node.getId();
 			int type1 = node.getType();
-			int type2 = node.getGen_node_label();
+			/*int type2 = node.getGen_node_label();
 
 			if (type1 == NeatConstant.SENSOR) {
 				_type = NeatConstant.INPUT;
@@ -1810,16 +1810,16 @@ public class Structure {
 					_type = NeatConstant.HIDDEN;
 			}
 
-			newVertex = new Vertex(0, 0, _type, _id);
+			newVertex = new Vertex(0, 0, _type, _id);*/
 
 			if (_id > hi_node_name)
 				hi_node_name = _id;
 
-			vVertex.addElement(newVertex);
-			if (_type == NeatConstant.SENSOR)
+			//vVertex.addElement(newVertex);
+			/*if (_type == NeatConstant.SENSOR)
 				vInp.add(newVertex);
 			else if (_type == NeatConstant.OUTPUT)
-				vOut.add(newVertex);
+				vOut.add(newVertex);*/
 
 		} // end block Vertex
 
@@ -1908,12 +1908,12 @@ public class Structure {
 
 			if (_Vertex.is_real()) {
 				_s.append("\n Node id[" + _Vertex.name + "] ");
-				if (_Vertex.type == NeatConstant.INPUT)
+				/*if (_Vertex.type == NeatConstant.INPUT)
 					_s.append(", SENSOR/BIAS");
 				if (_Vertex.type == NeatConstant.HIDDEN)
 					_s.append(", HIDDEN");
 				if (_Vertex.type == NeatConstant.OUTPUT)
-					_s.append(", OUTPUT");
+					_s.append(", OUTPUT");*/
 			}
 		}
 

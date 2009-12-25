@@ -119,12 +119,12 @@ public class HistoryLog extends JPanel {
 					.getText().length());
 			ml = textArea1.getText().length();
 
-			if (ml > EnvConstant.MAX_BUFFER_LOGGER) {
+			/*if (ml > EnvConstant.MAX_BUFFER_LOGGER) {
 				tmp = textArea1.getText(0, 128);
 				pos = tmp.indexOf("\n", 0);
 				tmp1 = textArea1.getText(pos + 1, ml - pos - 1);
 				textArea1.setText(tmp1);
-			}
+			}*/
 			paneScroll1.repaint();
 			textArea1.setCaretPosition(textArea1.getText().length());
 

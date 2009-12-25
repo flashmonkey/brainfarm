@@ -95,9 +95,9 @@ public boolean createNetwork()
 	Xnet = null;
 
 	// System.out.print("\n Test Network with genome -> " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION);
-	xFile = new IOseq(EnvConstant.NAME_OF_GENOME_FOR_EXECUTION);
-	boolean ret = xFile.IOseqOpenR();
-
+	//xFile = new IOseq(EnvConstant.NAME_OF_GENOME_FOR_EXECUTION);
+	//boolean ret = xFile.IOseqOpenR();
+	/*boolean ret = false;
 	if (!ret) 
 		return false;
 	if (ret) 
@@ -106,13 +106,13 @@ public boolean createNetwork()
 		try 
 		{
 
-			xline = xFile.IOseqRead();
-			st = new StringTokenizer(xline);
-			curword = st.nextToken();
+			//xline = xFile.IOseqRead();
+			//st = new StringTokenizer(xline);
+			//curword = st.nextToken();
 
 			while (curword.equalsIgnoreCase("/*")) 
 			{                //              System.out.print("\n skip -> "+xline);
-				EnvConstant.DESCRIPTION_GENOME = xline;
+				//EnvConstant.DESCRIPTION_GENOME = xline;
 				xline = xFile.IOseqRead();
 				st = new StringTokenizer(xline);
 				curword = st.nextToken();
@@ -128,7 +128,7 @@ public boolean createNetwork()
 
 			//setting the pointer of global genome
 
-			EnvConstant.CURR_GENOME_RUNNING = Xgenome;
+			//EnvConstant.CURR_GENOME_RUNNING = Xgenome;
 
 			//generate network
 			Xgenome.genesis(id);
@@ -154,7 +154,7 @@ public boolean createNetwork()
 		
 		catch (Throwable e) 
 		{
-			System.out.print("\n execution: : error during read " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION + " file "  + e); 
+			//System.out.print("\n execution: : error during read " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION + " file "  + e); 
 			return false;
 		}
 
@@ -165,10 +165,10 @@ public boolean createNetwork()
 	
 	else 
 	{
-		System.out.print("\n generation: error in open genome " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION); 
+		//System.out.print("\n generation: error in open genome " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION); 
 		return false;
 
-	}
+	}*/
 
 	return true;
 
@@ -188,7 +188,7 @@ public boolean createNetwork()
 
 	//setting the pointer of global genome
 
-	EnvConstant.CURR_GENOME_RUNNING = Xgenome;
+	//EnvConstant.CURR_GENOME_RUNNING = Xgenome;
 
 	//generate network
 	Xgenome.genesis(_genome.getId());
@@ -241,9 +241,9 @@ public boolean createNetwork()
 	try 
 	{
 
-		Class_inp = Class.forName(EnvConstant.DATA_INP);
+		//Class_inp = Class.forName(EnvConstant.DATA_INP);
 		ObjClass_inp = Class_inp.newInstance();
-		Method_inp = Class_inp.getMethod("getNumUnit", null);
+		//Method_inp = Class_inp.getMethod("getNumUnit", null);
 		ObjRet_inp = Method_inp.invoke(ObjClass_inp, null);
 		int class_input = Integer.parseInt(ObjRet_inp.toString());
 
@@ -251,25 +251,25 @@ public boolean createNetwork()
 		//
 		Method_inp = Class_inp.getMethod("getNumSamples", null);
 		ObjRet_inp = Method_inp.invoke(ObjClass_inp, null);
-		EnvConstant.NUMBER_OF_SAMPLES = Integer.parseInt(ObjRet_inp.toString());
+		//EnvConstant.NUMBER_OF_SAMPLES = Integer.parseInt(ObjRet_inp.toString());
 
-		if (EnvConstant.NR_UNIT_INPUT != nr_input) {
-			System.out.print("\n genome not compatible for wrong number of input unit");
-			return;
-		}
+		//if (EnvConstant.NR_UNIT_INPUT != nr_input) {
+		//	System.out.print("\n genome not compatible for wrong number of input unit");
+		//	return;
+		//}
 
-		Class_tgt = Class.forName(EnvConstant.DATA_OUT);
+		//Class_tgt = Class.forName(EnvConstant.DATA_OUT);
 		ObjClass_tgt = Class_tgt.newInstance();
 		Method_tgt = Class_tgt.getMethod("getNumUnit", null);
 		ObjRet_tgt = Method_tgt.invoke(ObjClass_tgt, null);
-		EnvConstant.NR_UNIT_OUTPUT = Integer.parseInt(ObjRet_tgt.toString());
+		//EnvConstant.NR_UNIT_OUTPUT = Integer.parseInt(ObjRet_tgt.toString());
 
-		if (EnvConstant.NR_UNIT_OUTPUT != nr_output) {
-			System.out.print("\n genome not compatible for wrong number of output unit");
-			return;
-		}
+		//if (EnvConstant.NR_UNIT_OUTPUT != nr_output) {
+		//	System.out.print("\n genome not compatible for wrong number of output unit");
+		//	return;
+		//}
 
-	    Class_fit = Class.forName(EnvConstant.CLASS_FITNESS);
+	    //Class_fit = Class.forName(EnvConstant.CLASS_FITNESS);
 		ObjClass_fit = Class_fit.newInstance();
 
 
@@ -290,12 +290,12 @@ public boolean createNetwork()
 	in[nr_input] = 1.0;
 
 	double out[][] = null;
-	out = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
+	//out = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
 
 	double tgt[][] = null;
-	tgt = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
+	//tgt = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
 
-	Integer ns = new Integer(EnvConstant.NUMBER_OF_SAMPLES);
+	//Integer ns = new Integer(EnvConstant.NUMBER_OF_SAMPLES);
 
 	net_depth = Xnet.max_depth();
 
@@ -303,13 +303,13 @@ public boolean createNetwork()
 	Integer nn = new Integer(xnn);
 
 	Class[] params = {int.class, int.class, double[][].class, double[][].class};
-	Object paramsObj[] = new Object[] {ns, nn, out, tgt};
+	//Object paramsObj[] = new Object[] {ns, nn, out, tgt};
 
-	_textArea.append("\n\nPOP.    FILE : " + EnvConstant.CURRENT_POPULATION_VIEW);
-	_textArea.append("\nGENOME  FILE : " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION); 
-	_textArea.append("\nINPUT   (class): " + EnvConstant.DATA_INP+ " )"); 
-	_textArea.append("\nOUTPUT  (class): " + EnvConstant.DATA_OUT+ " )"); 
-	_textArea.append("\nFITNESS (class): " + EnvConstant.CLASS_FITNESS+ " )"); 
+	//_textArea.append("\n\nPOP.    FILE : " + EnvConstant.CURRENT_POPULATION_VIEW);
+	//_textArea.append("\nGENOME  FILE : " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION); 
+	//_textArea.append("\nINPUT   (class): " + EnvConstant.DATA_INP+ " )"); 
+	//_textArea.append("\nOUTPUT  (class): " + EnvConstant.DATA_OUT+ " )"); 
+	//_textArea.append("\nFITNESS (class): " + EnvConstant.CLASS_FITNESS+ " )"); 
 	_textArea.append("\n");
 
 
@@ -337,7 +337,7 @@ public boolean createNetwork()
 
 		
 
-		for (count = 0; count < EnvConstant.NUMBER_OF_SAMPLES; count++) 
+		/*for (count = 0; count < EnvConstant.NUMBER_OF_SAMPLES; count++) 
 		{
 
 			
@@ -440,7 +440,7 @@ public boolean createNetwork()
 
 			// clear net 
 			Xnet.flush();
-		}
+		}*/
 
 		_textArea1.append("\n   (# of cycle " + nr_execution + ") \n ");
 
@@ -464,7 +464,7 @@ public boolean createNetwork()
 		
 
 		Method_fit = Class_fit.getMethod("computeFitness", params);
-		ObjRet_fit = Method_fit.invoke(ObjClass_fit, paramsObj);
+		//ObjRet_fit = Method_fit.invoke(ObjClass_fit, paramsObj);
 
 		fit_dyn = Array.getDouble(ObjRet_fit, 0);
 		err_dyn = Array.getDouble(ObjRet_fit, 1);
@@ -565,7 +565,7 @@ public boolean createNetwork()
 	{
 
 
-	    Class_fit = Class.forName(EnvConstant.CLASS_FITNESS);
+	    //Class_fit = Class.forName(EnvConstant.CLASS_FITNESS);
 		ObjClass_fit = Class_fit.newInstance();
 
 
@@ -588,12 +588,12 @@ public boolean createNetwork()
 	in[nr_input] = 1.0;
 
 	double out[][] = null;
-	out = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
+	//out = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
 
 	double tgt[][] = null;
-	tgt = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
+	//tgt = new double[EnvConstant.NUMBER_OF_SAMPLES][nr_output];
 
-	Integer ns = new Integer(EnvConstant.NUMBER_OF_SAMPLES);
+	//Integer ns = new Integer(EnvConstant.NUMBER_OF_SAMPLES);
 
 	net_depth = Xnet.max_depth();
 
@@ -605,13 +605,13 @@ public boolean createNetwork()
 
 	
 	Class[] params = {int.class, int.class, double[][].class, double[][].class};
-	Object paramsObj[] = new Object[] {ns, nn, out, tgt};
+	//Object paramsObj[] = new Object[] {ns, nn, out, tgt};
 
-	_textArea.append("\n\nPOP.    FILE : " + EnvConstant.CURRENT_POPULATION_VIEW);
-	_textArea.append("\nGENOME  FILE : " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION); 
-	_textArea.append("\nINPUT   (file) : " + EnvConstant.DATA_INP + " )");
-	_textArea.append("\nOUTPUT  (file) : " + EnvConstant.DATA_OUT + " )");
-	_textArea.append("\nFITNESS (class): " + EnvConstant.CLASS_FITNESS + " )");
+	//_textArea.append("\n\nPOP.    FILE : " + EnvConstant.CURRENT_POPULATION_VIEW);
+	//_textArea.append("\nGENOME  FILE : " + EnvConstant.NAME_OF_GENOME_FOR_EXECUTION); 
+	//_textArea.append("\nINPUT   (file) : " + EnvConstant.DATA_INP + " )");
+	//_textArea.append("\nOUTPUT  (file) : " + EnvConstant.DATA_OUT + " )");
+	//_textArea.append("\nFITNESS (class): " + EnvConstant.CLASS_FITNESS + " )");
 	_textArea.append("\n");
  
 	StringBuffer _textArea1 = new StringBuffer("");
@@ -663,7 +663,7 @@ public boolean createNetwork()
 		Xnet.load_sensors(in);
 
 		nr_execution = 0;
-		if (EnvConstant.ACTIVATION_PERIOD == EnvConstant.MANUAL) 
+		/*if (EnvConstant.ACTIVATION_PERIOD == EnvConstant.MANUAL) 
 		{
 			// if user has forced number of activation to fix value..
 			// 
@@ -688,7 +688,7 @@ public boolean createNetwork()
 				success = Xnet.activate();
 				nr_execution++;
 			}
-		}
+		}*/
 
 		// for each sample save each output
 		//
@@ -743,7 +743,7 @@ public boolean createNetwork()
 		
 
 		Method_fit = Class_fit.getMethod("computeFitness", params);
-		ObjRet_fit = Method_fit.invoke(ObjClass_fit, paramsObj);
+		//ObjRet_fit = Method_fit.invoke(ObjClass_fit, paramsObj);
 
 		fit_dyn = Array.getDouble(ObjRet_fit, 0);
 		err_dyn = Array.getDouble(ObjRet_fit, 1);

@@ -753,12 +753,12 @@ public class mXY {
 		itr_Vertex = _v.iterator();
 		while (itr_Vertex.hasNext()) {
 			_Vertex = ((Vertex) itr_Vertex.next());
-			if (_Vertex.type != CodeConstant.VERTEX_RECURRENT) {
+			/*if (_Vertex.type != CodeConstant.VERTEX_RECURRENT) {
 				py = _Vertex.level;
 				px = p[py];
 				m[py][px] = _Vertex;
 				p[py]++;
-			}
+			}*/
 		}
 
 	}

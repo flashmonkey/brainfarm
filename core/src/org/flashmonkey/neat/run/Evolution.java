@@ -1,32 +1,40 @@
 package org.flashmonkey.neat.run;
 
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
-import org.flashmonkey.neat.core.Genome;
+import org.flashmonkey.neat.api.IEvolutionListener;
 import org.flashmonkey.neat.core.Neat;
 import org.flashmonkey.neat.core.Organism;
 import org.flashmonkey.neat.core.Population;
 import org.flashmonkey.neat.core.Species;
+import org.flashmonkey.neat.experiments.api.Experiment;
 import org.flashmonkey.util.AbstractThreadedClass;
 
-import util.EnvConstant;
-
-public class ExperimentRun extends AbstractThreadedClass {
+public class Evolution extends AbstractThreadedClass implements IEvolution {
 	
-	private static Logger logger = Logger.getLogger(ExperimentRun.class);
+	private static Logger logger = Logger.getLogger(Evolution.class);
 	
-	private int numberOfRuns;
+	private int currentRun;
 	
-	private int numberOfEpochs;
+	private int currentEpoch;
+	
+	private Neat neat;
+	
+	private Experiment experiment;
 	
 	private Population population;
 	
 	private IOrganismEvaluator evaluator;
 	
-	public ExperimentRun(int numberOfRuns, int numberOfEpochs, Population population, IOrganismEvaluator evaluator) {
-		this.numberOfRuns = numberOfRuns;
-		this.numberOfEpochs = numberOfEpochs;
+	protected List<IEvolutionListener> listeners = Collections.synchronizedList(new CopyOnWriteArrayList<IEvolutionListener>());
+	
+	public Evolution(Neat neat, Experiment experiment, Population population, IOrganismEvaluator evaluator) {
+		this.neat = neat;
+		this.experiment = experiment;
 		this.population = population;
 		this.evaluator = evaluator;
 	}
@@ -34,19 +42,28 @@ public class ExperimentRun extends AbstractThreadedClass {
 	@Override
 	protected void execute() {
 		
-		logger.info("Starting an experiment run using\n" + numberOfRuns + ", " + numberOfEpochs + ", " + population + ", " + evaluator);
+		onEvolutionStart(population);
 		
-		for (int i = 0; i < numberOfRuns; i++) {
-			
-			for (int j = 0; j < numberOfEpochs; j++) {
+		logger.info("Starting an experiment run using\n" + neat.num_runs + ", " + experiment.getEpoch() + ", " + population + ", " + evaluator);
+		
+		for (int i = 0; i < neat.num_runs; i++) {
+			currentRun = i;
+			for (int j = 0; j < experiment.getEpoch(); j++) {
+				currentEpoch = j;
 				logger.info("Begging Epoch - " + j);
+				onEpochStart(i, j, population);
 				epoch(population, j);
+				onEpochComplete(i, j, population);
 			}
 		}
+		
+		onEvolutionComplete(population);
 	}
 	
 	public boolean epoch(Population pop, int generation) {
 
+		
+		
 		boolean esito = false;
 		boolean win = false;
 
@@ -66,32 +83,34 @@ public class ExperimentRun extends AbstractThreadedClass {
 				esito = evaluator.evaluate(_organism);
 
 				// if is a winner , store a flag
-				/*if (esito) {
+				if (esito) {
 					win = true;
 
 					if (_organism.getFitness() > max_fitness_of_winner) {
 						max_fitness_of_winner = _organism.getFitness();
-						EnvConstant.MAX_WINNER_FITNESS = max_fitness_of_winner;
+						//EnvConstant.MAX_WINNER_FITNESS = max_fitness_of_winner;
 					}
 				
 					// store only first organism
-					if (EnvConstant.FIRST_ORGANISM_WINNER == null) {
+					/*if (EnvConstant.FIRST_ORGANISM_WINNER == null) {
 						EnvConstant.FIRST_ORGANISM_WINNER = _organism;
-					}
+					}*/
 
-				}*/
+				}
 			}
 			
-			System.out.println("2 " + pop.organisms.get(0) + " " + ((Organism)pop.organisms.get(0)).fitness);
-
 			// compute average and max fitness for each species
-			/*Iterator itr_specie;
+			Iterator itr_specie;
 			itr_specie = pop.species.iterator();
 			while (itr_specie.hasNext()) {
 				Species _specie = ((Species) itr_specie.next());
 				_specie.compute_average_fitness();
 				_specie.compute_max_fitness();
-			}*/
+				
+				//System.out.println("species " + _specie.getId() + " Average Finess == " + _specie.getAve_fitness());
+			}
+			
+			
 			
 			// Only print to file every print_every generations
 			/*String cause1 = " ";
@@ -105,10 +124,9 @@ public class ExperimentRun extends AbstractThreadedClass {
 			}*/
 
 			// if exist a winner write to file
-			/*if (win) {
-				logger.debug(" generation:      in this generation "
-						+ generation + " i have found at leat one WINNER  ");
-				int conta = 0;
+			if (win) {
+				logger.debug("in generation " + generation + " i have found at leat one WINNER");
+				/*int conta = 0;
 				itr_organism = pop.getOrganisms().iterator();
 				while (itr_organism.hasNext()) {
 					Organism _organism = ((Organism) itr_organism.next());
@@ -128,16 +146,62 @@ public class ExperimentRun extends AbstractThreadedClass {
 
 				logger.debug(" generation:      number of winner's is "
 						+ conta);
-
-			}*/
+*/
+			}
 
 			// wait an epoch and make a reproduction of the best species
 			pop.epoch(generation);
-			System.out.println("3 " + pop.organisms.get(0));
+
+			
+			
 			if (win) {
 				return true;
 			} else
 				return false;
 
+	}
+	
+	protected void onEvolutionStart(Population population) {
+		for (IEvolutionListener listener : listeners) {
+			listener.onEvolutionStart(this);
+		}
+	}
+	
+	protected void onEvolutionComplete(Population population) {
+		for (IEvolutionListener listener : listeners) {
+			listener.onEvolutionComplete(this);
+		}
+	}
+	
+	protected void onEpochStart(int run, int epoch, Population population) {
+		for (IEvolutionListener listener : listeners) {
+			listener.onEpochStart(this);
+		}
+	}
+	
+	protected void onEpochComplete(int run, int epoch, Population population) {
+		for (IEvolutionListener listener : listeners) {
+			listener.onEpochComplete(this);
+		}
+	}
+	
+	public void addListener(IEvolutionListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeListener(IEvolutionListener listener) {
+		listeners.remove(listener);
+	}
+	
+	public int getRun() {
+		return currentRun;
+	}
+	
+	public int getEpoch() {
+		return currentEpoch;
+	}
+	
+	public Population getPopulation() {
+		return population;
 	}
 }

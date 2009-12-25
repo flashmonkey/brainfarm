@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="bin/dist/xor-experiment.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/projects/JNEAT2/jneat/bin/dist/jneat.jar"/>
+	<classpathentry kind="lib" path="D:/projects/brainfarm/core/bin/dist/jneat.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

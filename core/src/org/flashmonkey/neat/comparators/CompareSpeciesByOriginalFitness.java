@@ -22,8 +22,8 @@ import org.flashmonkey.neat.core.Species;
 		 Species _sx = (Species) o1;
 		 Species _sy = (Species) o2;
 	  
-		 Organism _ox = (Organism) _sx.organisms.firstElement();
-		 Organism _oy = (Organism) _sy.organisms.firstElement();
+		 Organism _ox = (Organism) _sx.organisms.get(0);
+		 Organism _oy = (Organism) _sy.organisms.get(0);
 	  
 		 if (_ox.orig_fitness < _oy.orig_fitness)
 			return +1;

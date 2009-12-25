@@ -18,6 +18,8 @@ public class ClassOrganismEvaluator extends AbstractOrganismEvaluator {
 	public ClassOrganismEvaluator(Neat neat, IExperimentFitness fitnessImpl, IExperimentInput inputImpl, IExperimentOutput outputImpl) {
 		super(neat, fitnessImpl);
 		
+		System.out.println("output impl " + outputImpl);
+		
 		this.inputImpl = inputImpl;
 		this.outputImpl = outputImpl;
 	}
@@ -26,11 +28,11 @@ public class ClassOrganismEvaluator extends AbstractOrganismEvaluator {
 	protected boolean evaluate() {
 		int input[] = new int[2];
 
-		for (int count = 0; count < EnvConstant.NUMBER_OF_SAMPLES; count++) {
+		for (int count = 0; count < neat.getNumberOfSamples(); count++) {
 			input[0] = count;
 			// first activation from sensor to first next level of
 			// neurons
-			for (int j = 0; j < EnvConstant.NR_UNIT_INPUT; j++) {
+			for (int j = 0; j < neat.getNumberOfInputs(); j++) {
 				input[1] = j;
 				in[j] = inputImpl.getInput(input);
 			}
@@ -38,11 +40,11 @@ public class ClassOrganismEvaluator extends AbstractOrganismEvaluator {
 			// load sensor
 			net.load_sensors(in);
 
-			if (EnvConstant.ACTIVATION_PERIOD == EnvConstant.MANUAL) {
+			/*if (EnvConstant.ACTIVATION_PERIOD == EnvConstant.MANUAL) {
 				for (int relax = 0; relax < EnvConstant.ACTIVATION_TIMES; relax++) {
 					success = net.activate();
 				}
-			} else {
+			} else {*/
 				// first activation from sensor to next layer....
 				success = net.activate();
 
@@ -51,12 +53,11 @@ public class ClassOrganismEvaluator extends AbstractOrganismEvaluator {
 				for (int relax = 0; relax <= net_depth; relax++) {
 					success = net.activate();
 				}
-			}
+			//}
 
 			// for each sample save each output
-			for (int j = 0; j < EnvConstant.NR_UNIT_OUTPUT; j++)
-				out[count][j] = ((NNode) net.getOutputs().get(j))
-						.getActivation();
+			for (int j = 0; j < neat.getNumberOfOutputUnits(); j++)
+				out[count][j] = ((NNode) net.getOutputs().get(j)).getActivation();
 
 			// clear net
 			net.flush();
@@ -67,10 +68,9 @@ public class ClassOrganismEvaluator extends AbstractOrganismEvaluator {
 			// ripassare
 			// al chiamante;
 			int target[] = new int[2];
-	
-			for (int count = 0; count < EnvConstant.NUMBER_OF_SAMPLES; count++) {	
+			for (int count = 0; count < neat.getNumberOfSamples(); count++) {	
 				target[0] = count;
-				for (int j = 0; j < EnvConstant.NR_UNIT_OUTPUT; j++) {
+				for (int j = 0; j < neat.getNumberOfOutputUnits(); j++) {
 					target[1] = j;
 					tgt[count][j] = outputImpl.getTarget(target);
 				}

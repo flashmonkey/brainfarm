@@ -81,7 +81,7 @@ public class EnvRoutine {
 	/**
 	 * Inserire qui la descrizione del metodo. Data di creazione: (15/06/02
 	 * 12.12.47)
-	 */
+	 *//*
 	public static int getNumberSamplesForFile(String _file) {
 		String nomef;
 		StringTokenizer riga;
@@ -114,7 +114,7 @@ public class EnvRoutine {
 
 		return rc;
 
-	}
+	}*/
 
 	/**
 	 * Inserire qui la descrizione del metodo. Data di creazione: (13/06/02

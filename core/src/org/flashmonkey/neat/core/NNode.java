@@ -52,7 +52,7 @@ public class NNode extends Neat {
 	 * Used for genetic marking of nodes. are 4 type of node :
 	 * input,bias,hidden,output
 	 */
-	int gen_node_label;
+	NodeLabel gen_node_label;
 
 	/**
 	 * this value is how many time this node are activated during activation of
@@ -169,11 +169,11 @@ public class NNode extends Neat {
 		this.id = id;
 	}
 
-	public int getGen_node_label() {
+	public NodeLabel getGen_node_label() {
 		return gen_node_label;
 	}
 
-	public void setGen_node_label(int gen_node_label) {
+	public void setGen_node_label(NodeLabel gen_node_label) {
 		this.gen_node_label = gen_node_label;
 	}
 
@@ -228,7 +228,7 @@ public class NNode extends Neat {
 		activation_count = 0; // Inactive upon creation
 		id = nodeid; // id del nodo
 		ftype = NeatConstant.SIGMOID; // funt act : signmoide
-		gen_node_label = NeatConstant.HIDDEN;
+		gen_node_label = NodeLabel.HIDDEN;
 		setTrait(null);
 		// incoming = new Vector(1, 0);
 		// outgoing = new Vector(1, 0);
@@ -238,7 +238,7 @@ public class NNode extends Neat {
 		inner_level = 0;
 	}
 
-	public NNode(int ntype, int nodeid, int placement) {
+	public NNode(int ntype, int nodeid, NodeLabel placement) {
 		active_flag = false;
 		activesum = 0;
 		activation = 0;
@@ -262,7 +262,7 @@ public class NNode extends Neat {
 	// Construct the node out of a file specification
 	// using given list of traits
 	//
-	public NNode(String xline, ArrayList<Trait> traits) {
+	/*public NNode(String xline, ArrayList<Trait> traits) {
 
 		active_flag = false;
 		inner_level = 0;
@@ -301,7 +301,7 @@ public class NNode extends Neat {
 
 		// get genetic typw of node
 		s1 = st.nextToken();
-		gen_node_label = Integer.parseInt(s1);
+		//gen_node_label = Integer.parseInt(s1);
 
 		setTrait(null);
 		is_traversed = false;
@@ -318,7 +318,7 @@ public class NNode extends Neat {
 			}
 		}
 
-	}
+	}*/
 	
 	/**
 	 * Empty Constructor.

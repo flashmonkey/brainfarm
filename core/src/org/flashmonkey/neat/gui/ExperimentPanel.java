@@ -419,7 +419,7 @@ public class ExperimentPanel extends JPanel implements ActionListener {
 		//EnvConstant.OP_SYSTEM = System.getProperty("os.name");
 		//EnvConstant.OS_VERSION = System.getProperty("os.version");
 		//EnvConstant.JNEAT_DIR = System.getProperty("user.dir");
-		EnvConstant.OS_FILE_SEP = System.getProperty("file.separator");
+		//EnvConstant.OS_FILE_SEP = System.getProperty("file.separator");
 
 	}
 
@@ -563,7 +563,7 @@ public class ExperimentPanel extends JPanel implements ActionListener {
 
 		else if (e.getActionCommand().equals(" Load sess file....")) {
 
-			EnvConstant.EDIT_STATUS = 0;
+			//EnvConstant.EDIT_STATUS = 0;
 
 			FileDialog fileDialog = new FileDialog(f1, "load session file",
 					FileDialog.LOAD);

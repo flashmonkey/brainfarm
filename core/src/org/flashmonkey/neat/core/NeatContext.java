@@ -11,7 +11,7 @@ import org.flashmonkey.neat.experiments.api.IExperimentOutput;
 import org.flashmonkey.neat.experiments.api.INeatContext;
 import org.flashmonkey.neat.experiments.api.StartFrom;
 import org.flashmonkey.neat.run.ClassOrganismEvaluator;
-import org.flashmonkey.neat.run.ExperimentRun;
+import org.flashmonkey.neat.run.Evolution;
 import org.flashmonkey.neat.run.IOrganismEvaluator;
 import org.flashmonkey.util.FileUtils;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -148,21 +148,21 @@ public class NeatContext implements INeatContext {
 
 	@Override
 	public Population getPopulation() {
-		if (experiment.getStartFrom() == StartFrom.GENOME && (!EnvConstant.FORCE_RESTART)) {
+		if (experiment.getStartFrom() == StartFrom.GENOME) {
 			return new Population(genome, neat.pop_size);
 		}
 
-		if ((EnvConstant.TYPE_OF_START == EnvConstant.START_FROM_NEW_RANDOM_POPULATION)
+		/*if ((EnvConstant.TYPE_OF_START == EnvConstant.START_FROM_NEW_RANDOM_POPULATION)
 				&& (!EnvConstant.FORCE_RESTART)) {
 			return new Population(neat.pop_size, neat.getNumberOfInputs() + 1,
 					neat.getNumberOfOutputUnits(), EnvConstant.NR_UNIT_MAX, EnvConstant.RECURSION, EnvConstant.PROBABILITY_OF_CONNECTION);
-		}
+		}*/
 		
-		if ((EnvConstant.TYPE_OF_START == EnvConstant.START_FROM_OLD_POPULATION)
+		/*if ((EnvConstant.TYPE_OF_START == EnvConstant.START_FROM_OLD_POPULATION)
 				|| (EnvConstant.FORCE_RESTART)) {
-			/*u_pop = new Population(EnvRoutine
-					.getJneatFileData(EnvConstant.NAME_CURR_POPULATION));*/
-		}
+			u_pop = new Population(EnvRoutine
+					.getJneatFileData(EnvConstant.NAME_CURR_POPULATION));
+		}*/
 		
 		return null;
 	}
@@ -180,7 +180,7 @@ public class NeatContext implements INeatContext {
 		if (experiment.getDataSource() == DataSource.CLASS) {
 			neat.setNumberOfInputs(getInputImpl().getNumUnit());
 			neat.setNumberOfSamples(getInputImpl().getNumSamples());
-			neat.setNumberOfOutputUnits(getInputImpl().getNumUnit());
+			neat.setNumberOfOutputUnits(getOutputImpl().getNumUnit());
 		} else if (experiment.getDataSource() == DataSource.FILE) {
 			
 		}
@@ -195,12 +195,12 @@ public class NeatContext implements INeatContext {
 	}
 	
 	public Runnable getExperimentRun() {
-		return new ExperimentRun(neat.num_runs, experiment.getEpoch(), getPopulation(), getOrganismEvaluator());
+		return new Evolution(getNeat(), getExperiment(), getPopulation(), getOrganismEvaluator());
 	}
 	
 	private IOrganismEvaluator getOrganismEvaluator() {
 		if (experiment.getDataSource() == DataSource.CLASS) {
-			return new ClassOrganismEvaluator(neat, fitnessImpl, inputImpl, outputImpl);
+			return new ClassOrganismEvaluator(neat, getFitnessImpl(), getInputImpl(), getOutputImpl());
 		}
 		return null;
 	}

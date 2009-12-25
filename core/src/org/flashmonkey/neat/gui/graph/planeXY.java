@@ -151,8 +151,8 @@ public class planeXY {
 		itr_Vertex = v.iterator();
 		while (itr_Vertex.hasNext()) {
 			_p = ((Vertex) itr_Vertex.next());
-			if (_p.type == NeatConstant.OUTPUT)
-				offset_y = 0;
+			/*if (_p.type == NeatConstant.OUTPUT)
+				offset_y = 0;*/
 			vVertex.add(_p);
 		}
 

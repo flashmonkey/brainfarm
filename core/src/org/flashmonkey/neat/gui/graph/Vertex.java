@@ -3,6 +3,8 @@ package org.flashmonkey.neat.gui.graph;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.flashmonkey.neat.core.NodeLabel;
+
 import util.CodeConstant;
 import util.NeatConstant;
 
@@ -18,7 +20,7 @@ public class Vertex {
 	public int name;
 
 	// type of node
-	public int type;
+	public NodeLabel type;
 
 	// used for valorize lambda of this Vertex
 	public int level;
@@ -81,7 +83,7 @@ public class Vertex {
 	public Vertex(int _x, int _y) {
 		x = _x;
 		y = _y;
-		type = 0;
+		type = NodeLabel.HIDDEN;
 		level = -1;
 		gx = -1;
 		Vertex_ref = null;
@@ -100,7 +102,7 @@ public class Vertex {
 	 * @param y
 	 *            int
 	 */
-	public Vertex(int _x, int _y, int _t) {
+	public Vertex(int _x, int _y, NodeLabel _t) {
 		x = _x;
 		y = _y;
 		type = _t;
@@ -116,7 +118,7 @@ public class Vertex {
 	/**
 	 * costruttore
 	 */
-	public Vertex(int _x, int _y, int _t, int _id) {
+	public Vertex(int _x, int _y, NodeLabel _t, int _id) {
 		x = _x;
 		y = _y;
 		type = _t;
@@ -143,14 +145,14 @@ public class Vertex {
 		System.out.print("\n Vertex ID=" + name);
 		System.out.print(", (x=" + x + " , y=" + y);
 		System.out.print("), edge_id=" + edge_id);
-		if (type == NeatConstant.INPUT)
+		if (type == NodeLabel.INPUT)
 			System.out.print(", SENSOR/BIAS");
-		if (type == NeatConstant.HIDDEN)
+		if (type == NodeLabel.HIDDEN)
 			System.out.print(", HIDDEN");
-		if (type == NeatConstant.OUTPUT)
+		if (type == NodeLabel.OUTPUT)
 			System.out.print(", OUTPUT");
 
-		if (type == CodeConstant.VERTEX_BOT_Y)
+		/*if (type == CodeConstant.VERTEX_BOT_Y)
 			System.out.print(", VIRTUAL-bottom");
 		if (type == CodeConstant.VERTEX_MID_Y)
 			System.out.print(", VIRTUAL-middle");
@@ -159,7 +161,7 @@ public class Vertex {
 		if (type == CodeConstant.VERTEX_TOP_Y)
 			System.out.print(", VIRTUAL-top");
 		if (type == CodeConstant.VERTEX_RECURRENT)
-			System.out.print(", NODO RECURRENT");
+			System.out.print(", NODO RECURRENT");*/
 
 		System.out.print(", lev=" + level);
 		System.out.print(", alt=" + altitude);
@@ -190,7 +192,7 @@ public class Vertex {
 		// System.out.print("\n  BACK :  ---------  entro con depth "+depth+"  per input to node : "+name);
 		//
 
-		if (type == NeatConstant.INPUT) {
+		if (type == NodeLabel.INPUT) {
 			// System.out.print("\n  BACK :    SENSOR  "+name+" has level  "+depth);
 
 			return depth;
@@ -242,7 +244,7 @@ public class Vertex {
 		}
 		// System.out.print("\n  FORW :  ---------  entro con depth "+depth+"  per input to node : "+name);
 		//
-		if (type == NeatConstant.OUTPUT) {
+		if (type == NodeLabel.OUTPUT) {
 			// System.out.print("\n  BACK :    SENSOR  "+name+" has level  "+depth);
 			return depth;
 		}
@@ -290,28 +292,28 @@ public class Vertex {
 
 	public boolean is_virtual() {
 
-		if ((type == CodeConstant.VERTEX_BOT_Y)
+		/*if ((type == CodeConstant.VERTEX_BOT_Y)
 				|| (type == CodeConstant.VERTEX_MID_Y)
 				|| (type == CodeConstant.VERTEX_SNG_Y)
 				|| (type == CodeConstant.VERTEX_TOP_Y))
-			return true;
+			return true;*/
 
 		return false;
 	}
 
 	public boolean is_real() {
 
-		if ((type == NeatConstant.SENSOR) || (type == NeatConstant.OUTPUT)
+		/*if ((type == NeatConstant.SENSOR) || (type == NodeLabel.OUTPUT)
 				|| (type == NeatConstant.NEURON))
-			return true;
+			return true;*/
 
 		return false;
 	}
 
 	public boolean is_recurrent() {
 
-		if (type == CodeConstant.VERTEX_RECURRENT)
-			return true;
+		/*if (type == CodeConstant.VERTEX_RECURRENT)
+			return true;*/
 
 		return false;
 	}
@@ -319,7 +321,7 @@ public class Vertex {
 	/**
 	 * costruttore
 	 */
-	public Vertex(int _x, int _y, int _t, int _id, Vertex _p, Edge _e) {
+	public Vertex(int _x, int _y, NodeLabel _t, int _id, Vertex _p, Edge _e) {
 		x = _x;
 		y = _y;
 		type = _t;

@@ -233,7 +233,7 @@ public class graph extends javax.swing.JPanel implements ActionListener {
 
 			Vector v1 = new Vector(1, 0);
 
-			v1.add(new code(150, 150, NeatConstant.HIDDEN, 151));
+			/*v1.add(new code(150, 150, NeatConstant.HIDDEN, 151));
 
 			// nord
 			v1.add(new code(150, 150, 150, 300, CodeConstant.LINE_SE, -1));
@@ -249,7 +249,7 @@ public class graph extends javax.swing.JPanel implements ActionListener {
 
 			// est
 			v1.add(new code(150, 150, 50, 150, CodeConstant.LINE_SE, +1));
-			v1.add(new code(50, 150, NeatConstant.HIDDEN, 666));
+			v1.add(new code(50, 150, NeatConstant.HIDDEN, 666));*/
 
 			mappa.setScale(400, 400);
 			mappa.setGrafo(v1);

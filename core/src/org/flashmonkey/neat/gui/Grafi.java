@@ -288,7 +288,7 @@ public class Grafi extends JPanel implements ActionListener,
 		//EnvConstant.OP_SYSTEM = System.getProperty("os.name");
 		//EnvConstant.OS_VERSION = System.getProperty("os.version");
 		//EnvConstant.JNEAT_DIR = System.getProperty("user.dir");
-		EnvConstant.OS_FILE_SEP = System.getProperty("file.separator");
+		//EnvConstant.OS_FILE_SEP = System.getProperty("file.separator");
 
 	}
 
@@ -361,8 +361,8 @@ public class Grafi extends JPanel implements ActionListener,
 
 			if (tmp1 != null && tmp2 != null) {
 				name = tmp1 + tmp2;
-				EnvConstant.NAME_GENOMEA = name;
-				EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = name;
+				//EnvConstant.NAME_GENOMEA = name;
+				//EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = name;
 
 				boolean rc = false;
 
@@ -392,14 +392,14 @@ public class Grafi extends JPanel implements ActionListener,
 			if (tmp1 != null && tmp2 != null) {
 				name = tmp1 + tmp2;
 				// EnvConstant.NAME_CURR_POPULATION = name;
-				EnvConstant.CURRENT_POPULATION_VIEW = name;
-				EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = null;
+				//EnvConstant.CURRENT_POPULATION_VIEW = name;
+				//EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = null;
 				//Popx = new Population(EnvConstant.CURRENT_POPULATION_VIEW);
 				// Popx = new Population(EnvConstant.NAME_CURR_POPULATION);
 				n = Popx.getOrganisms().size();
 				listdata.clear();
 				for (int j = 0; j < n; j++) {
-					_ox = (Organism) Popx.getOrganisms().elementAt(j);
+					_ox = (Organism) Popx.getOrganisms().get(j);
 					_g1 = _ox.getGenome();
 					_id = _g1.getId();
 					_s = " Genome_" + _id + " ";
@@ -425,16 +425,16 @@ public class Grafi extends JPanel implements ActionListener,
 			if (tmp1 != null && tmp2 != null) {
 				name = tmp1 + tmp2;
 				// EnvConstant.NAME_CURR_POPULATION = name;
-				EnvConstant.CURRENT_POPULATION_VIEW = name;
+				//EnvConstant.CURRENT_POPULATION_VIEW = name;
 
-				EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = null;
+				//EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = null;
 
 				//Popx = new Population(EnvConstant.CURRENT_POPULATION_VIEW, true);
 				// Popx = new Population(EnvConstant.NAME_CURR_POPULATION,true);
 				n = Popx.getOrganisms().size();
 				listdata.clear();
 				for (int j = 0; j < n; j++) {
-					_ox = (Organism) Popx.getOrganisms().elementAt(j);
+					_ox = (Organism) Popx.getOrganisms().get(j);
 					_g1 = _ox.getGenome();
 					_id = _g1.getId();
 					_s = " Genome_" + _id + " ";
@@ -475,10 +475,10 @@ public class Grafi extends JPanel implements ActionListener,
 
 				i1 = jList1.getSelectedIndex();
 				s2 = jList1.getSelectedValue().toString();
-				_ox = (Organism) Popx.getOrganisms().elementAt(i1);
+				_ox = (Organism) Popx.getOrganisms().get(i1);
 				_g1 = _ox.getGenome();
-				EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = s2;
-				EnvConstant.CURR_GENOME_RUNNING = _g1;
+				//EnvConstant.NAME_OF_GENOME_FOR_EXECUTION = s2;
+				//EnvConstant.CURR_GENOME_RUNNING = _g1;
 
 				textArea.setText("");
 
@@ -561,7 +561,7 @@ public class Grafi extends JPanel implements ActionListener,
 			return;
 		}
 
-		if (EnvConstant.TYPE_OF_SIMULATION == EnvConstant.SIMULATION_FROM_FILE) {
+		/*if (EnvConstant.TYPE_OF_SIMULATION == EnvConstant.SIMULATION_FROM_FILE) {
 			logger.sendToLog(" grafi: execution from file...");
 			expm.executeForFile(textArea);
 		}
@@ -569,9 +569,9 @@ public class Grafi extends JPanel implements ActionListener,
 		else if (EnvConstant.TYPE_OF_SIMULATION == EnvConstant.SIMULATION_FROM_CLASS) {
 			logger.sendToLog(" grafi: execution from class...");
 			expm.executeForClass(textArea);
-		}
+		}*/
 
-		ViewGraph((Genome) EnvConstant.CURR_GENOME_RUNNING);
+		//ViewGraph((Genome) EnvConstant.CURR_GENOME_RUNNING);
 		logger.sendToStatus("READY");
 	}
 
@@ -589,7 +589,7 @@ public class Grafi extends JPanel implements ActionListener,
 		Execution expm = new Execution();
 		expm.createNetwork(_genome);
 
-		if (EnvConstant.TYPE_OF_SIMULATION == EnvConstant.SIMULATION_FROM_FILE) {
+		/*if (EnvConstant.TYPE_OF_SIMULATION == EnvConstant.SIMULATION_FROM_FILE) {
 			logger.sendToLog(" grafi: execution from file...");
 			expm.executeForFile(textArea);
 
@@ -598,9 +598,9 @@ public class Grafi extends JPanel implements ActionListener,
 		else if (EnvConstant.TYPE_OF_SIMULATION == EnvConstant.SIMULATION_FROM_CLASS) {
 			logger.sendToLog(" grafi: execution from class...");
 			expm.executeForClass(textArea);
-		}
+		}*/
 
-		ViewGraph((Genome) EnvConstant.CURR_GENOME_RUNNING);
+		//ViewGraph((Genome) EnvConstant.CURR_GENOME_RUNNING);
 		logger.sendToStatus("READY");
 	}
 
@@ -658,7 +658,7 @@ public class Grafi extends JPanel implements ActionListener,
 
 		mappa.setAxis(false);
 
-		logger.sendToLog(" grafi: load genome " + EnvConstant.NAME_GENOMEA);
+		//logger.sendToLog(" grafi: load genome " + EnvConstant.NAME_GENOMEA);
 
 		mappa.setGrafo(v1);
 		mappa.validate();
@@ -681,20 +681,20 @@ public class Grafi extends JPanel implements ActionListener,
 		if (ckx.equalsIgnoreCase("view and exec"))
 
 		{
-			if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
+			/*if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
 				textArea.setText("");
 				execCurrGenome((Genome) EnvConstant.CURR_GENOME_RUNNING);
 
-			}
+			}*/
 
 		}
 
 		if (ckx.equalsIgnoreCase("view only")) {
-			if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
+			/*if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
 				textArea.setText("");
 				ViewGraph((Genome) EnvConstant.CURR_GENOME_RUNNING);
 
-			}
+			}*/
 
 		}
 
@@ -704,20 +704,20 @@ public class Grafi extends JPanel implements ActionListener,
 			if (ckg1.equalsIgnoreCase("view and exec"))
 
 			{
-				if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
+				/*if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
 					textArea.setText("");
 					execCurrGenome((Genome) EnvConstant.CURR_GENOME_RUNNING);
 
-				}
+				}*/
 
 			}
 
 			if (ckg1.equalsIgnoreCase("view only")) {
-				if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
+				/*if (!((Genome) EnvConstant.CURR_GENOME_RUNNING == null)) {
 					textArea.setText("");
 					ViewGraph((Genome) EnvConstant.CURR_GENOME_RUNNING);
 
-				}
+				}*/
 
 			}
 

@@ -2,64 +2,109 @@ package org.flashmonkey.neat.core;
 
 import java.text.DecimalFormat;
 
+import org.flashmonkey.neat.core.api.IGene;
+
 import util.IOseq;
 
-/** Is a genetic codification of gene; */
-public class Gene extends Neat {
-
-	/** if a reference to object for identify input/output node and features */
+/** 
+ * A genetic codification of gene. 
+ */
+public class Gene implements IGene
+{
+	/** 
+	 * Reference to object for identify input/output node and features. 
+	 */
 	private Link link;
 
-	/** is historical marking of node */
+	/** 
+	 * Historical marking of node.
+	 */
 	private double innovationNumber;
 
-	/** how much mutation has changed the link */
+	/** 
+	 * How much mutation has changed the link.
+	 */
 	private double mutationNumber;
 
-	/** is a flag: is TRUE the gene is enabled FALSE otherwise. */
+	/** 
+	 * TRUE the gene is enabled. 
+	 */
 	private boolean enabled;
 
-	public Gene(Gene g, Trait tp, NNode inode, NNode onode) {
-		link = new Link(tp, g.link.getWeight(), inode, onode, g.link.isRecurrent());
-		setInnovationNumber(g.getInnovationNumber());
-		setMutationNumber(g.getMutationNumber());
-		setEnabled(g.isEnabled());
+	/**
+	 * Empty Constructor.
+	 */
+	public Gene() {
+	}
+	
+	/**
+	 * Creates a new Gene from references to the Trait and Input/Output Nodes.
+	 * 
+	 * @param gene
+	 * @param trait
+	 * @param inputNode
+	 * @param outputNode
+	 */
+	public Gene(Gene gene, Trait trait, NNode inputNode, NNode outputNode) {
+		
+		// Create a new Link.
+		link = new Link(trait, gene.link.getWeight(), inputNode, outputNode, gene.link.isRecurrent());
+		
+		// Copy the supplied gene's properties.
+		setInnovationNumber(gene.getInnovationNumber());
+		setMutationNumber(gene.getMutationNumber());
+		setEnabled(gene.isEnabled());
+	}
+	
+	/**
+	 * Creates a new Gene from the supplied Input/Output nodes and gene properties.
+	 * 
+	 * @param trait
+	 * @param weight
+	 * @param inputNode
+	 * @param outputNode
+	 * @param recurrent
+	 * @param innovationNumber
+	 * @param mutationNumber
+	 */
+	public Gene(Trait trait, double weight, NNode inputNode, NNode outputNode, boolean recurrent, double innovationNumber, double mutationNumber) {
+		
+		// Create the Link.
+		link = new Link(trait, weight, inputNode, outputNode, recurrent);
+		
+		// Set the gene properties.
+		setInnovationNumber(innovationNumber);
+		setMutationNumber(mutationNumber);
+		setEnabled(true);
 	}
 
-	public void op_view() {
+	public String toString() {
 
+		StringBuilder s = new StringBuilder();
+		
 		String mask03 = " 0.000;-0.000";
 		DecimalFormat fmt03 = new DecimalFormat(mask03);
 
 		String mask5 = " 0000";
 		DecimalFormat fmt5 = new DecimalFormat(mask5);
 
-		System.out.print("\n [Link (" + fmt5.format(link.getInputNode().getId()));
-		System.out.print("," + fmt5.format(link.getOutputNode().getId()));
-		System.out.print("]  innov (" + fmt5.format(getInnovationNumber()));
+		s.append("\n [Link (" + fmt5.format(link.getInputNode().getId()));
+		s.append("," + fmt5.format(link.getOutputNode().getId()));
+		s.append("]  innov (" + fmt5.format(getInnovationNumber()));
 
-		System.out.print(", mut=" + fmt03.format(getMutationNumber()) + ")");
-		System.out.print(" Weight " + fmt03.format(link.getWeight()));
+		s.append(", mut=" + fmt03.format(getMutationNumber()) + ")");
+		s.append(" Weight " + fmt03.format(link.getWeight()));
 
 		if (link.getTrait() != null)
-			System.out.print(" Link's trait_id " + link.getTrait().getId());
+			s.append(" Link's trait_id " + link.getTrait().getId());
 
 		if (isEnabled() == false)
-			System.out.print(" -DISABLED-");
+			s.append(" -DISABLED-");
 
 		if (link.isRecurrent())
-			System.out.print(" -RECUR-");
-
-	}
-
-	public Gene() {
-	}
-
-	public Gene(Trait trait, double weight, NNode inputNode, NNode outputNode, boolean recurrent, double innovationNumber, double mutationNumber) {
-		link = new Link(trait, weight, inputNode, outputNode, recurrent);
-		setInnovationNumber(innovationNumber);
-		setMutationNumber(mutationNumber);
-		setEnabled(true);
+			s.append(" -RECUR-");
+		
+		return s.toString();
 	}
 
 	public void print_to_file(IOseq xFile) {

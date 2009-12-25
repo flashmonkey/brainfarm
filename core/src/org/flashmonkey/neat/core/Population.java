@@ -3,15 +3,22 @@
 package org.flashmonkey.neat.core;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.flashmonkey.neat.api.ISpringXMLCapable;
 import org.flashmonkey.neat.comparators.CompareSpeciesByOriginalFitness;
+import org.flashmonkey.neat.core.api.IInnovation;
 import org.flashmonkey.util.NeatRoutine;
 import org.flashmonkey.util.RandomUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 
 import util.EnvConstant;
@@ -20,15 +27,15 @@ import util.IOseq;
 import util.NeatConstant;
 
 /** A Population is a group of Organisms including their species */
-public class Population extends Neat {
+public class Population implements ISpringXMLCapable {
 	/** The organisms in the Population */
-	public Vector organisms;
+	public List<Organism> organisms;
 
 	/** Species in the Population the species should comprise all the genomes */
-	public Vector species;
+	public List<Species> species;
 
 	/** For holding the genetic innovations of the newest generation */
-	Vector innovations = new Vector(1, 0);
+	List<IInnovation> innovations = new ArrayList<IInnovation>();
 
 	/** Current label number available for nodes */
 	private int cur_node_id;
@@ -64,27 +71,27 @@ public class Population extends Neat {
 	/** If too high, leads to delta coding process. */
 	int highest_last_changed;
 
-	public Vector getOrganisms() {
+	public List<Organism> getOrganisms() {
 		return organisms;
 	}
 
-	public void setOrganisms(Vector organisms) {
+	public void setOrganisms(List<Organism> organisms) {
 		this.organisms = organisms;
 	}
 
-	public Vector getSpecies() {
+	public List<Species> getSpecies() {
 		return species;
 	}
 
-	public void setSpecies(Vector species) {
+	public void setSpecies(List<Species> species) {
 		this.species = species;
 	}
 
-	public Vector getInnovations() {
+	public List<IInnovation> getInnovations() {
 		return innovations;
 	}
 
-	public void setInnovations(Vector innovations) {
+	public void setInnovations(List<IInnovation> innovations) {
 		this.innovations = innovations;
 	}
 
@@ -267,7 +274,7 @@ public class Population extends Neat {
 		// within a species.
 		// Then, within each Species, mark for death
 		// those below survival_thresh * average
-		System.out.println("From Outside " + organisms.get(0) + " " + ((Organism)organisms.get(0)).fitness);
+
 		itr_specie = species.iterator();
 		while (itr_specie.hasNext()) {
 			_specie = ((Species) itr_specie.next());
@@ -276,7 +283,7 @@ public class Population extends Neat {
 
 		// Go through the organisms and add up their fitnesses to compute the
 		// overall average
-		System.out.println("From Outside " + organisms.get(0) + " " + ((Organism)organisms.get(0)).fitness);
+
 		itr_organism = organisms.iterator();
 		total = 0.0000;
 		int z = 0;
@@ -395,7 +402,7 @@ public class Population extends Neat {
 			// (_specie.organisms.firstElement())).orig_fitness);
 			rep1
 					.append(" is "
-							+ ((Organism) (_specie.organisms.firstElement())).orig_fitness);
+							+ ((Organism) (_specie.organisms.get(0))).orig_fitness);
 
 			// System.out.print(" last improved ");
 			rep1.append(" last improved ");
@@ -408,18 +415,18 @@ public class Population extends Neat {
 
 		}
 
-		EnvConstant.REPORT_SPECIES_TESTA = rep1.toString();
+		//EnvConstant.REPORT_SPECIES_TESTA = rep1.toString();
 		rep1 = new StringBuffer("");
 
 		curspecies = (Species) sorted_species.firstElement();
 
 		// Check for Population-level stagnation
-		((Organism) curspecies.getOrganisms().firstElement()).pop_champ = true;
+		((Organism) curspecies.getOrganisms().get(0)).pop_champ = true;
 
-		Organism tmp = (Organism) curspecies.getOrganisms().firstElement();
+		Organism tmp = (Organism) curspecies.getOrganisms().get(0);
 
-		if (((Organism) curspecies.organisms.firstElement()).orig_fitness > highest_fitness) {
-			highest_fitness = ((Organism) curspecies.organisms.firstElement()).orig_fitness;
+		if (((Organism) curspecies.organisms.get(0)).orig_fitness > highest_fitness) {
+			highest_fitness = ((Organism) curspecies.organisms.get(0)).orig_fitness;
 			highest_last_changed = 0;
 			// System.out.print("\n    Good! Population has reached a new *RECORD FITNESS* -> "
 			// + highest_fitness);
@@ -428,14 +435,13 @@ public class Population extends Neat {
 							+ highest_fitness);
 
 			// 01.06.2002
-			EnvConstant.CURR_ORGANISM_CHAMPION = tmp;
+			//EnvConstant.CURR_ORGANISM_CHAMPION = tmp;
 
-			EnvConstant.MIN_ERROR = ((Organism) curspecies.organisms
-					.firstElement()).getError();
+			//EnvConstant.MIN_ERROR = ((Organism) curspecies.organisms.firstElement()).getError();
 
 		} else {
 			++highest_last_changed;
-			EnvConstant.REPORT_SPECIES_TESTA = "";
+			//EnvConstant.REPORT_SPECIES_TESTA = "";
 
 			// System.out.print("\n  Are passed "+ highest_last_changed+
 			// " generations from last population fitness record: "+
@@ -445,7 +451,7 @@ public class Population extends Neat {
 					+ highest_fitness);
 		}
 
-		EnvConstant.REPORT_SPECIES_CORPO = rep1.toString();
+		//EnvConstant.REPORT_SPECIES_CORPO = rep1.toString();
 
 		// Check for stagnation- if there is stagnation, perform delta-coding
 
@@ -465,14 +471,14 @@ public class Population extends Neat {
 
 			// the first organism of first species can have offspring = 1/2 pop
 			// size
-			((Organism) _specie.organisms.firstElement()).super_champ_offspring = half_pop;
+			((Organism) _specie.organisms.get(0)).super_champ_offspring = half_pop;
 			// the first species can have offspring = 1/2 pop size
 			_specie.expected_offspring = half_pop;
 			_specie.age_of_last_improvement = _specie.age;
 
 			if (itr_specie.hasNext()) {
 				_specie = ((Species) itr_specie.next());
-				((Organism) _specie.organisms.firstElement()).super_champ_offspring = half_pop;
+				((Organism) _specie.organisms.get(0)).super_champ_offspring = half_pop;
 				// the second species can have offspring = 1/2 pop size
 				_specie.expected_offspring = half_pop;
 				_specie.age_of_last_improvement = _specie.age;
@@ -483,7 +489,7 @@ public class Population extends Neat {
 					_specie.expected_offspring = 0;
 				}
 			} else {
-				((Organism) _specie.organisms.firstElement()).super_champ_offspring += Neat.pop_size
+				((Organism) _specie.organisms.get(0)).super_champ_offspring += Neat.pop_size
 						- half_pop;
 				_specie.expected_offspring += Neat.pop_size - half_pop;
 			}
@@ -540,7 +546,7 @@ public class Population extends Neat {
 					if (_specie.last_improved() <= Neat.dropoff_age) {
 						if (i_block < 3) {
 							if (stolen_babies >= tb_four[i_block]) {
-								((Organism) _specie.organisms.firstElement()).super_champ_offspring = tb_four[i_block];
+								((Organism) _specie.organisms.get(0)).super_champ_offspring = tb_four[i_block];
 								_specie.expected_offspring += tb_four[i_block];
 								stolen_babies -= tb_four[i_block];
 								System.out.print("\n  give " + tb_four[i_block]
@@ -553,7 +559,7 @@ public class Population extends Neat {
 							if (RandomUtils.randomDouble() > 0.1) {
 								if (stolen_babies > 3) {
 									((Organism) _specie.organisms
-											.firstElement()).super_champ_offspring = 3;
+											.get(0)).super_champ_offspring = 3;
 									_specie.expected_offspring += 3;
 									stolen_babies -= 3;
 									System.out
@@ -561,7 +567,7 @@ public class Population extends Neat {
 													+ _specie.id);
 								} else {
 									((Organism) _specie.organisms
-											.firstElement()).super_champ_offspring = stolen_babies;
+											.get(0)).super_champ_offspring = stolen_babies;
 									_specie.expected_offspring += stolen_babies;
 									System.out.print("\n    Give "
 											+ stolen_babies
@@ -581,7 +587,7 @@ public class Population extends Neat {
 							.print("\n Not all given back, giving to best Species");
 					itr_specie = sorted_species.iterator();
 					_specie = ((Species) itr_specie.next());
-					((Organism) _specie.organisms.firstElement()).super_champ_offspring += stolen_babies;
+					((Organism) _specie.organisms.get(0)).super_champ_offspring += stolen_babies;
 					_specie.expected_offspring += stolen_babies;
 					System.out.print("\n    force +" + stolen_babies
 							+ " offspring to Species " + _specie.id);
@@ -609,7 +615,7 @@ public class Population extends Neat {
 		for (int i = 0; i < vdel.size(); i++) {
 			Organism _organism = (Organism) vdel.elementAt(i);
 			// organisms.remove(_organism);
-			organisms.removeElement(_organism);
+			organisms.remove(_organism);
 		}
 
 		vdel.clear();
@@ -699,7 +705,7 @@ public class Population extends Neat {
 				// organisms
 				for (int j = 0; j < size_of_curr_specie; j++) {
 					Organism _organism = (Organism) _specie.organisms
-							.elementAt(j);
+							.get(j);
 					_organism.genome.setId(orgcount++);
 					// add ugo
 					// ******************************************************************************************
@@ -715,7 +721,7 @@ public class Population extends Neat {
 		for (int i = 0; i < vdel.size(); i++) {
 			_specie = (Species) vdel.elementAt(i);
 			// species.remove(_specie);
-			species.removeElement(_specie);
+			species.remove(_specie);
 
 		}
 
@@ -748,12 +754,12 @@ public class Population extends Neat {
 		 * best_species_num+" survived ");
 		 */
 
-		if (!best_ok)
+		/*if (!best_ok)
 			EnvConstant.REPORT_SPECIES_CODA = "\n  <ALERT>  THE BEST SPECIES DIED!";
 		else
 			EnvConstant.REPORT_SPECIES_CODA = "\n  Good : the best Specie #"
 					+ best_species_num + " survived ";
-
+*/
 		itr_organism = organisms.iterator();
 		vdel = new Vector(organisms.size());
 
@@ -835,7 +841,7 @@ public class Population extends Neat {
 					Species _specie = ((Species) itr_specie.next());
 					// point to first organism of this _specie-esima
 					compare_org = (Organism) _specie.getOrganisms()
-							.firstElement();
+							.get(0);
 					// compare _organism-esimo('_organism') with first organism
 					// in current specie('compare_org')
 					double curr_compat = _organism.getGenome().compatibility(
@@ -1099,6 +1105,15 @@ public class Population extends Neat {
 			_organism.genome.print_to_file(xFile);
 		}
 
+	}
+
+	@Override
+	public Node toSpringXML(Document xml) {
+		
+		
+		
+		
+		return null;
 	}
 
 	/**

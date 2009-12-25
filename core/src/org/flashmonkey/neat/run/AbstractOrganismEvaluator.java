@@ -56,31 +56,21 @@ public abstract class AbstractOrganismEvaluator implements IOrganismEvaluator {
 
 		// System.out.print("\n evaluate.step 1 ");
 
-		in = new double[EnvConstant.NR_UNIT_INPUT + 1];
+		in = new double[neat.getNumberOfInputs() + 1];
 
 		// setting bias
 
-		in[EnvConstant.NR_UNIT_INPUT] = 1.0;
+		in[neat.getNumberOfInputs()] = 1.0;
 
 		out = new double[neat.getNumberOfSamples()][neat.getNumberOfOutputUnits()];
 
 		tgt = new double[neat.getNumberOfSamples()][neat.getNumberOfOutputUnits()];
 
-		Integer ns = new Integer(neat.getNumberOfSamples());
-
 		net = organism.net;
 		net_depth = net.max_depth();
-
-		// pass the number of node in genome for add a new
-		// parameter of evaluate the fitness
-		//
-		int xnn = net.getAllNodes().size();
-		Integer nn = new Integer(xnn);
-
-		
-		
+	
 		if (evaluate()) {
-			double[] fitness = fitnessImpl.computeFitness(ns, nn, out, tgt);
+			double[] fitness = fitnessImpl.computeFitness(neat.getNumberOfSamples(), net.getAllNodes().size(), out, tgt);
 			//System.out.println("SETTING FITNESS FROM FITNESS CLASS");
 			fit_dyn = fitness[0];
 			err_dyn = fitness[1];
@@ -95,6 +85,7 @@ public abstract class AbstractOrganismEvaluator implements IOrganismEvaluator {
 			organism.setError(errorsum);
 		}
 		
+		System.out.println(fit_dyn + " " + err_dyn + " " + win_dyn);
 		//System.out.println("FITNESS AFTER EVALUATION == " + organism.getFitness());
 		
 		if (win_dyn == 1.0) {
@@ -104,7 +95,7 @@ public abstract class AbstractOrganismEvaluator implements IOrganismEvaluator {
 
 		if (win_dyn == 2.0) {
 			organism.setWinner(true);
-			EnvConstant.SUPER_WINNER_ = true;
+			//EnvConstant.SUPER_WINNER_ = true;
 			return true;
 		}
 
